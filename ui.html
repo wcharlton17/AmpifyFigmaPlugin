@@ -48,7 +48,10 @@
 
   onmessage = (event) => {
     if (event.data.pluginMessage.type === 'get-image') {
-      loadRandomImage(event.data.pluginMessage.nodeIndex)
+      loadRandomImage(event.data.pluginMessage.id)
+    }
+    if (event.data.pluginMessage.type === 'get-title') {
+      loadRandomPackName(event.data.pluginMessage.index)
     }
   }
 
@@ -60,21 +63,31 @@
     parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
   }
 
-  function loadRandomImage(nodeIndex) {
+  function getRandomPack(cb) {
     var request = new XMLHttpRequest()
     request.open('GET', 'https://api.ampifymusic.com/packs')
     request.responseType = 'json'
     request.onload = async () => {
       const packs = request.response.packs
       const randomPack = packs[Math.floor(Math.random() * packs.length)]
-
-      await loadImage(randomPack.imageUrl, nodeIndex)
+      cb(randomPack)
     };
-
     request.send()
   }
 
-  async function loadImage(url, nodeIndex) {
+  function loadRandomImage(nodeId) {
+    getRandomPack(async (pack) => {
+      await loadImage(pack.imageUrl, nodeId)
+    })
+  }
+
+  function loadRandomPackName(nodeIndex) {
+    getRandomPack((pack) => {
+      parent.postMessage({ pluginMessage: { type: 'new-title', name: pack.name, nodeIndex } }, '*')
+    })
+  }
+
+  async function loadImage(url, nodeId) {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
     const art = new Image()
@@ -86,7 +99,7 @@
       ctx.drawImage(art, 0, 0)
       const imageData = ctx.getImageData(0, 0, art.width, art.height)
       const newBytes = await encode(canvas, ctx, imageData)
-      parent.postMessage({ pluginMessage: { type: 'new-image', newBytes, nodeIndex } }, '*')
+      parent.postMessage({ pluginMessage: { type: 'new-image', newBytes, nodeId } }, '*')
     }
   }
 
