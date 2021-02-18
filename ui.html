@@ -1,43 +1,105 @@
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
+<style>
+  .button {
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .button-container {
+    float: unset !important;
+    text-align: center;
+  }
+
+  .create {
+    background-color: #4CAF50;
+  }
+
+  .cancel {
+    background-color: #008CBA;
+  }
+</style>
+
+<div class="header">
+  <img class="center" src='https://theme.zdassets.com/theme_assets/826653/570da1e2571e802356cffce7a041d28a8edb00bc.png'
+    height="50">
+</div>
+
+<div class="text-center">
+  <div class="button-container">
+    <button id="create" class="button create">Create</button>
+    <button id="cancel" class="button cancel">Cancel</button>
+  </div>
+</div>
 <script>
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-  const art = new Image()
-  art.crossOrigin = 'Anonymous'
-  art.src = "https://images.ampifymusic.com/content_classic_hip_hop-2x.jpg"
-  art.onload = async () => {
-    canvas.width = art.width
-    canvas.height = art.height
-    ctx.drawImage(art, 0, 0)
-    const imageData = ctx.getImageData(0, 0, art.width, art.height)
-    const newBytes = await encode(canvas, ctx, imageData)
-    parent.postMessage({ pluginMessage: { type: 'create-rectangles', count, newBytes } }, '*')
+  onmessage = (event) => {
+    if (event.data.pluginMessage.type === 'get-image') {
+      loadRandomImage(event.data.pluginMessage.nodeIndex)
+    }
   }
-}
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
+  document.getElementById('create').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'process-selected' } }, '*')
+  }
 
+  document.getElementById('cancel').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  }
 
-async function encode(canvas, ctx, imageData) {
-  ctx.putImageData(imageData, 0, 0)
-return new Promise((resolve, reject) => {
-    canvas.toBlob(blob => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(new Uint8Array(reader.result))
-      reader.onerror = () => reject(new Error('Could not read from blob'))
-      reader.readAsArrayBuffer(blob)
+  function loadRandomImage(nodeIndex) {
+    var request = new XMLHttpRequest()
+    request.open('GET', 'https://api.ampifymusic.com/packs')
+    request.responseType = 'json'
+    request.onload = async () => {
+      const packs = request.response.packs
+      const randomPack = packs[Math.floor(Math.random() * packs.length)]
+
+      await loadImage(randomPack.imageUrl, nodeIndex)
+    };
+
+    request.send()
+  }
+
+  async function loadImage(url, nodeIndex) {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const art = new Image()
+    art.crossOrigin = ''
+    art.src = url
+    art.onload = async () => {
+      canvas.width = art.width
+      canvas.height = art.height
+      ctx.drawImage(art, 0, 0)
+      const imageData = ctx.getImageData(0, 0, art.width, art.height)
+      const newBytes = await encode(canvas, ctx, imageData)
+      parent.postMessage({ pluginMessage: { type: 'new-image', newBytes, nodeIndex } }, '*')
+    }
+  }
+
+  async function encode(canvas, ctx, imageData) {
+    ctx.putImageData(imageData, 0, 0)
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(new Uint8Array(reader.result))
+        reader.onerror = () => reject(new Error('Could not read from blob'))
+        reader.readAsArrayBuffer(blob)
+      })
     })
-  })
-}
+  }
 
 </script>

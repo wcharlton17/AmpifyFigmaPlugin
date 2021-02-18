@@ -8,31 +8,28 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__);
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
+const isRectangleNode = (node: SceneNode): node is RectangleNode => {
+  return node.type === "RECTANGLE"
+}
+
 figma.ui.onmessage = msg => {
-  // One way of distinguishing between different types of messages sent from
-  // your HTML page is to use an object with a "type" property like this.
-  if (msg.type === 'create-rectangles') {
-    const nodes: SceneNode[] = [];
-    for (let i = 0; i < msg.count; i++) {
-      const rect = figma.createRectangle();
-      fillWithPack(msg.newBytes, rect);
-      rect.x = i * 150;
-      figma.currentPage.appendChild(rect);
-      nodes.push(rect);
-    }
-    figma.currentPage.selection = nodes;
-    figma.viewport.scrollAndZoomIntoView(nodes);
+  if (msg.type === "process-selected") {
+    const selectedNodes: RectangleNode[] = figma.currentPage.selection.filter(isRectangleNode)
+
+    selectedNodes.forEach((node, index) => {
+      figma.ui.postMessage({type: "get-image", nodeIndex: index})
+    })
+
   }
 
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
-  figma.closePlugin();
+  if (msg.type === 'new-image') {
+    const selectedNodes: RectangleNode[] = figma.currentPage.selection.filter(isRectangleNode)
+    const node = selectedNodes[msg.nodeIndex]
+    fillWithPack(msg.newBytes, node)
+  }
 };
 
-function fillWithPack(imageData, node: GeometryMixin) {
+function fillWithPack(imageData, node: RectangleNode) {
   const newImage = figma.createImage(imageData)
 
   const fills = clone(node.fills);
