@@ -15,16 +15,7 @@ figma.ui.onmessage = msg => {
         const nodes = [];
         for (let i = 0; i < msg.count; i++) {
             const rect = figma.createRectangle();
-            const newImage = figma.createImage(msg.newBytes);
-            const fills = clone(rect.fills);
-            for (const paint of fills) {
-                paint.type = 'IMAGE';
-                paint.scaleMode = 'FILL';
-                delete paint.color;
-                paint.imageHash = newImage.hash;
-            }
-            console.log(fills);
-            rect.fills = fills;
+            fillWithPack(msg.newBytes, rect);
             rect.x = i * 150;
             figma.currentPage.appendChild(rect);
             nodes.push(rect);
@@ -36,6 +27,18 @@ figma.ui.onmessage = msg => {
     // keep running, which shows the cancel button at the bottom of the screen.
     figma.closePlugin();
 };
+function fillWithPack(imageData, node) {
+    const newImage = figma.createImage(imageData);
+    const fills = clone(node.fills);
+    for (const paint of fills) {
+        paint.type = 'IMAGE';
+        paint.scaleMode = 'FILL';
+        delete paint.color;
+        paint.imageHash = newImage.hash;
+    }
+    node.fills = fills;
+    return node;
+}
 function clone(val) {
     return JSON.parse(JSON.stringify(val));
 }
