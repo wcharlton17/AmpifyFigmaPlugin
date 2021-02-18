@@ -1,0 +1,43 @@
+<h2>Rectangle Creator</h2>
+<p>Count: <input id="count" value="5"></p>
+<button id="create">Create</button>
+<button id="cancel">Cancel</button>
+<script>
+
+document.getElementById('create').onclick = () => {
+  const textbox = document.getElementById('count');
+  const count = parseInt(textbox.value, 10);
+
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  const art = new Image()
+  art.crossOrigin = 'Anonymous'
+  art.src = "https://images.ampifymusic.com/content_classic_hip_hop-2x.jpg"
+  art.onload = async () => {
+    canvas.width = art.width
+    canvas.height = art.height
+    ctx.drawImage(art, 0, 0)
+    const imageData = ctx.getImageData(0, 0, art.width, art.height)
+    const newBytes = await encode(canvas, ctx, imageData)
+    parent.postMessage({ pluginMessage: { type: 'create-rectangles', count, newBytes } }, '*')
+  }
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+
+
+async function encode(canvas, ctx, imageData) {
+  ctx.putImageData(imageData, 0, 0)
+return new Promise((resolve, reject) => {
+    canvas.toBlob(blob => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(new Uint8Array(reader.result))
+      reader.onerror = () => reject(new Error('Could not read from blob'))
+      reader.readAsArrayBuffer(blob)
+    })
+  })
+}
+
+</script>
