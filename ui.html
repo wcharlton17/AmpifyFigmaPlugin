@@ -1,7 +1,7 @@
 <style>
   .button {
     border: none;
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -12,107 +12,118 @@
     cursor: pointer;
   }
 
-  .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
+  .create {
+    background-color: #4caf50;
+  }
+
+  .cancel {
+    background-color: #008cba;
   }
 
   .button-container {
     float: unset !important;
     text-align: center;
+    display: flex;
+    flex-direction: column;
   }
 
-  .create {
-    background-color: #4CAF50;
-  }
-
-  .cancel {
-    background-color: #008CBA;
+  .header-image {
+    margin-top: 32px;
+    margin-bottom: 32px;
   }
 </style>
 
-<div class="header">
-  <img class="center" src='https://theme.zdassets.com/theme_assets/826653/570da1e2571e802356cffce7a041d28a8edb00bc.png'
-    height="50">
-</div>
+<body style="background-color: #363636">
+  <div class="header-image" style="text-align: center">
+    <img
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKkAAABjCAYAAADgpiD9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAABQ9SURBVHgB7V0NcBXXdT6770lPek+/oB+MSQQOBYIMztTOULUTA8YzscelImnaurhJitMw8bhpbE8nsYe2QKeedpoONPWM3Ta1YSY2dR23LsY/SbAxpfXEbuiAIcLBoSAwQSDQD/p9T+/pbc63e+/qavVkhPS0uvu0n2a1u3f33d1799tzzzn33LsGBQyWZRlYG4aBbXu9bds2Qz2H9+0F2Lp1q7V9+3bDuy2OW9485G/Vc3Pl7T0u073XHq8YThGM8Y6HUGBQQCDJCWIcPHjQfPb5V1ZHYyXNRab5W2QaDRQEWNZ7fK9H0pnkX9ZXlrSGJJ0YTAoAQFCQ87bbbos2LF9e9/x//GhnaSLxRlE08vXAEBQwjFtYhv5hUaTkdEdfdmd3t1UNSR7ioxEISQqSgqD3/dGf1N33+xtfj0aiK7IDAzR44Ac09MH79hIERBc0UHzdZ6m06XYngSVrX1fP2o9/vLI7lKrjQ2uSQsqwBDX37dsXOXv2bMlPjp76u4rKys3DHVeoa8fjNNxxmYKIyNxaqn5kC69raDib/YfaCvOhkKTjQ3eSwriI1NbWljz253+9/MubvvIu0q9seTiwBJUAUedseZzMeJwGU8l1N84teSskam5oq5MKqxsvUXRwcDC+vvlz30T64I8PBZ6gAMowwOoKUFJU3JzLkxDCgc6GkyGW4kwmk4jHSxuROHjgh1QoSEtd2jCa4bEIjajc0Nq6b2xsjJSXlxdns9nSkpLSZUhLf3iWCgXS4OMGo+Hy5cum03CE8EJrkvb395vDw8NFLGFiVOBAWaUvOMRoaEtS6GjczBv84HCPESpwoKwUIie0lqTpdNpkown3GIhOh6kAZaUQOaFtxSj93gY/QCp0XLp0iUILPze0JalwP1FpaSkVFRWFD28WQ1uSykgibu5nhV+mvr4eZQ59UDmgtR4UiUQslqSQorPi4XlDDkM4iJLGuHDhgk1Qbu5pNkC2HiFGQ+vmfv78+XZwMAUo7nWKCJv7HNCapOzIN7i5t2aLdU+z52W8LmhNUvnguLkveAlTW1trhM19bmhtOInmHpK04CWMaZpWSNLc0NZwwgN76qmnDHZBUT4k6WdbnrXXtoLL/wzl9XTjOgzR3hqjt+VxQ9km5Zjh3Vfyc7MzR5/jXve3nePzPnWx9wbnmDHqvpw9C+mGel9OXhYZ4rTRmrtlIh/1Okr55L3kKrd3rd5HrrKOyWck3RLHxMBJZ8AjGeP9XhwX98/3aMhjWlv3AFxQTNS8SNIfbdhOuqHqwT+1162njn+hsrIyBbcbhXDxrX9c8qrWJBU6aV4eWhD0hWg0SmFM6WhwbVjXIimUeUP2hKhj0zFgHX3N6jhzT7qlOqfV81Sov1XR0tJiLF261Dx37lx+JGkAWDo0NGQWFxdnM5mMTVh1DdhjaXJIWnhBUO84V90GUqmUEYvF7N/IfNQ8vdsSudIAy+e3yDBobJStuAe763zNmjWRefPmrebtZl7Wc/pC8gm4PiqKKxldo7TnRWeoxaWv/QFNBnedeJZ+2Kxvc9/b2/1qIlHxaTag6kgnWNnTWV6GBnr2pNPJdjvJR6J+65+U5l4MepMza0TWrVs3l90if8aV9sc0A8h3Pege9B6Lld5jmBrepGHeZPJSUjbnzuhwem+yt2sPy9l+v4jqGk5KRLh58803R5uammrr6upeZ7KuoBmErId8DKvQnaQtP7tAXV1Jar/SRzqhuipOSxbX06KGGopGiprLKmtWDPZdeYxbOX+Iagg/KSQoiHDrrbdG2traShYsWPAXM01QcV+UL+hujpx4v43aL/eSbujqHqB3D5+hfa8fo/6BlC1ZY/HqjeQjbJJCkkL/ZCMlxsbKMvZLbiaNkI8XVndJatl/+gIEPfBfJymdHiaTJWqkqGyl4cPIQUNKUljjra2t9vh2lqLfpAKE7sa965DXGCDqyZ9ftLdjJSW/Bk8CTTPsiReEwWSPb+clwS6ORipEBMFRGoCbbL/iqCSmGQVJ/4VdZq67arpgj/WW49t5v5St+WUUYoagvyNf6s0Gu8owSHK6pand3EPfw5jv3t5eVkWLiqlAEc67kH9ks1ljuqUoGpeoaOoRt2nyBbUMgQ9n9tAWvjwYE92R9fX1Wo9tnxX92Z4wpiAAIZTebtNpgOUSU/SPhxMUzBT4RQzay8hGNvkAIyqDRzBMA33khQrtNQYjeHqzHz1O6Kk3ZaQSJGlBD9PQnQAWBW4YHgwnmm7wm+s272LAm5aPclYYTvjkDwULaO6n27q3dVBhOEmdVMt6mg3dokEczIxxWb4YTnJUJuZc0g2zK0rdCpxO6pOf1HAlqZukEfLZzOv//IPnggJ8kKROcy8RGk4zhyCq3dwlStMNN+hZDHgr6CkWtQ/Vg2qDJUBshVBDcz/d/lLbusckDLDuSVP1fdZ0i4bdv2Mh40lFJEth15D2pTMcSRowTLdO6u0G1a6GZpt1H2Is3Mh8uU+aWvd58ZNSABCwtsyPzh88eZuksnuLL6rV65xXSRqqe4GEK0nRc0AaQkpSrC+3Ox6I4iWfpEJBpMaZB6Kzqy+QoXp+dIsCWuukgCTqT959214XTZKkOj7+2C232uuurn45eR4FCfCTTrvhZAhnvuInJZ1giPkOsfyvIGnijrvsz3Bff2akFczySipe5ox5PHrsDAW1x8kPqD1O2tUQyMmqiN2svN9yjF55+UUy4nGqfmTL5IiqCUDQsg2/a2+3nDhnDxUOoi/Yjx5KV5Ki7x5Dm3UM1ZMkxfL9579HZ06fYoLWUM3jO6niy5sp+rGGCeWjAweiN36MSj7961T+e18is6KSOjp76Mix01zGSCBJ6ks8KSMqZlQmMVmZVpCSFHoPVJFUcpC2bXmEfufeL9FvNn+BSptut5cJ5bV+ZAY7HdDd3UWvvHaYb6yIyxYJbG/TdHeLuvGkEjp+LwlERSXg3jARQSqVpN1PP0lf+8q99NYbP7Ala1AwODDQ88HPWo6d//As9fX2sJnErUS0CGPYKdRHx4GhSFIB7aSpaY4eGyila1dnBz35xLfH9aUeOnTo82x9utN7L/1M5rXvPrVjKz7ZrbrckBc3W/Yax1hq28dk2kSB8733rebLMFOpVGxoaCi28YtfXRlPxLmFKOEXMMplCub4Rz+ioIColKQiwEQ7gIRSmgJSR0UFYbGUUZaqXsfbnSx9U+R8vQQfQKCqqqoe6FEgqSCre74krqpnSeJJwkmAyLg27kOej0Fp8h7lNdQ1nx9hkqb6+/tLyysqKBaLBZqggF+GU1ROEy6+8kG6AgSEbiolKYgJ4nglmAS/dBeZnEno2iAVVO758+d3gTBylKMku1en+qg0VXqM93sVkvxcv0U9PT2luJ84eyhQBsMMLkEBXwxtGU8K6559pVo76kBOcEta+pKkuYBj5eXlHSDpSNNu0Lx580ZNAOol2bUIm2t7vDTvNZLJpC0BWJLGInjZCkAHRdn8+BhFdOvWrfZHrjDGiZtAbbs81IqQzbpKKEliCdb9UmvXrh1sbGy0E79/iKw5c+akUKnqxw4kEK6Y66MJ3m4/tYclVz65gLy7u7vRUg3zS5MtBIICvkTm8xLF3KRCklpBiczP9eZ605hwWRCUX0Bb3Dau22p/mhznsZdgzLwGTOBVTLgmbpL3cNN8Scln3OvkyicXpDSFVDcD3sT7DjVUT3xXvqCguteMa4gvfkFvYil5J6/1+vqHxvArMMn7WhdM5C2k5qhvQ81wyXyaN8lX+DODCZMUOikCTGDdF9Inu6EHomxy/3o7dLhlqWepmqA8Qjb5VCDwoyyjdFLWxShf3/DUEhMsWUlJSVMikXhEfvSLpcVxNnp2qnrqZOD1qxYC/CmLNdItyg/B0tlPOlVMtDa5DpqZoAm26t9go+gYb69go+oJSFaaJPwY9jsT8CXoGX5xkBT6m5hmBz0pU5IYOoDJ9VOoMGgl3MQJspR/e6m9vX0T/37nhQsXHmNX1nOcnODeqodpkhDf/JTWvZVKJruRXldbTkFDVVXcXmczmVafPjZmmYrehu7DLDub/4cCDibET3llyblXgYnqpH19fTu5Hvrl/uXLl/dws9bO5LqJJglIG5DTcj71YnVcaT+B9LqaCgoali52GpShzNBZP1oHE9+QgBOcJUaWKzEDZ3NbW9uPKeA4f/78jgULFox60Sf6zjNB23Mko3VJTKXJh08VX2BmqTrceub/bZIu+ZV6SiSC8y2NRLzY/nwjcK711EtogX2ZCwoPkp3ekKAZfkCp/2OwobCXAgruftx9/PjxM5WVlaO6QyYqScfxk9rknKzxJOJhs0zSYV4yp35+4tS5c6ffKS6K0B23LwsEUUHQO1Y7X0/q7urYnxzovYQyTXuTbzjfcbJqa2uzNTU1KbZsMR/5wDvvvPM9JuxpChi4WT159OjRHdxzlEKZSPGOTpSkbNlvVl1PnM99sPRhSNEUACnKkjjD+af4/obe/u8DB/r7+y4m4jFaf9cttOq2Ra6+pxOgN9/8yRvprjsbCfeaSiXPnzxxZC9eNnTx0jTDnbDs4MGD2YULF6ZZCuETwaXsjmp/8803H121atUXq6ur11MA0Nvb+29HjhzZwa3AJTZyMijTZIZkQPdkYj7Beu1x3q6Hdc/J/egupUnCcoDwvEx5eXmSW63BK1eudO/99+d2/cbqO+9oaPjEKjSjsinVFRfbfnHo5IljL5WXxzu5HBnELfhhO8lPiVtr167NtLa2DvLbfpUfkNnZ2Wnt37//yfnz5+9buXLlvZy+iCXMItII8EQwOd/u6Og4wAQ9xDpSZ1lZ2QDrpGlhpNB1oj+VSj3H5dyALlIkwA3FBP3uVP2keKB8PyyQM+wwGOpHPCt80/tff/nVOXNq3m36zNrV5eWV88rKyiet904H4ImAodfW9uF7v/iw9XhdXV0fC4EhbnX9iXgmQVI0+QjE4AcOnbRHuKMgidJsVCV5+Vt+WKYSlmaIbfkajdnHP084m6WeJ6KOcMx9FT0hb/b06PKzgKolid/AAOHNIb7HQV56+fhVJlLv8uXLU2yRj6nAa/EVVjyvpLTcK5t81dKfCmSUFevKQ7JM0OlY8md6e6+mX3v5xRfZizCqmxqhiIYDS02T0f4iZPG6glbUQG5vnl6gOed6zjAhUxUVFQNM0IG5c+dCkKWhvvjkgiLXNBMhe3i4STj2WSKluSIGuAAJvpcYV1SUb1pOxyOjsg2lQO6+OG4XXHS1WvK3IBjS1X38DvkhiBZreYwUksouOBFoy266DIyQFKcPcEX2c8UNgKDr168fPnz48JQHFuaLnBJCsiNSP4uQQRCWH34mHo8PIcaU67yYr2mqMapqZL/MA9lIQil52iMFsC0Jp44+kL9D8LcYymLJ/NU81dEJYj78YV7STNAUv1xJXg+BoMyNYdy/H7OX2N2i7o7hBqyjFBYbUhlujpJccX18MzFyglHsyhJuB1dqot9fnXMfxESF4CWXY4bE+Rg27X7lRHzxxI7AknnIb0nJ/JRruS8AH4OUh9sszX5NDBEZuvvuu9MyNG9UYIla2hkGKoTLY79kkKggARMVtkCSVYAI1CzUjUpUGbOZyyepHst1HogmX3xvvmoe8riaN9LgkuR7zOIeuYlPCw+FLYr9IKgNVZLa+w5RcbPDZ86cGYYOxdtJ9jlGWM+zI/dF7Kl9vpxrn98wuwlntcAuKBseBjefljxXnofof962ZJrMB8TMce6YNLzhfC1LXMtavHhx9tSpU7hH64UXXvhIQ0mXDnMp/fCwIVXZ2h+GkoqmHq2GGA/lnq+M7XIlqjJuakLkzTVaINe53jxwHeieokcyK4npSzMvMEqSuomimRSR7hln04AhYnczyjFRWB544AFqaWkxIMGgLsjjDz74IMnpe7DGMWSi/vZakPnLbe/irahrGkkahXXIe4dU5QcPqWohyh8klZH+IIS6L4F0tC5yLYFzJYnkb5An1l6ne648vCMTZF7yuBxo6CM/HRizaLD3r95jWf+644N7KESg8O19S16dNWMZwunogwnvdOQhCgRwn+U7YHvGYOTQSacTu3btqsJ606ZN3eQ3ZoEkZdfQTdwTtFn0ktlhh+w42MMdM1Pq0p1p+EJSJucGXm3lSvsU9p955plWNnSYq5sOUoi8ABFabID9DW/Cr32MF/h5P8HpD7M7sYy7Yf+TggjDh+aeCbqQK+wlXhYyMXfzgsqy03CMfIJR4J/3YIJ+lVcJtuj/GcHabW1tf8W9WY9yWj9b+xuD2vzDyeSHJF3DxDzI6++w5LTf5qeffvohTtvJvj5I2L8nP1AoMzKMA3YPNaF5Z4nphlki3uDq1auPYjhMvnvQ/AI8UNNOUibmbl7tZqm5BuTkCmsgR5LicBX5hEK27pVg7DFBMNwjF7iQSy+mnaSiuX9LNPez7ANi/oAd731ic0wEFYwpSFKWqqcDKU0Nf1xQu3hZyMt3mKSLeKnmZS2FyBtAPgy95nqtR5C2TBfG1BNM1IeD2twDfuikC/Hv/vvvf0gmsHRtJp9R6M58zA2AodfFxcUbb7jhhhVM2kvcpdmEY3BDUUBh+OEn5eYdivw3mJgvccW9x03Pak5bQ/6joPUMGEnsD/16dXU19P6VckQBrP3QT3oNcBME672BibmBtzfwupuX7bz9DfIRRoFb9wCIystjcDexFC2b6mgCLeCHC4qt+1ZefU70NlWJfWAb+YtZY7FB/wyyDqrCmE1RUKs+jzhOZ3u8Nd5a8QE+uT9SQeKYe744ZoheAjUv9feEUQnO7zBvv+Eed1J4bYmv/o25F2+ac/2RNOeyY68nj9Gosji/d5JN+9ru/bjlVNfyHlFuy7muMVJ2yxCe55H8LWdKHO/9y3Nz5e8tL4267sh+iBAhQoQIESJEiBAzjF8Co2Rmp3hlD7UAAAAASUVORK5CYII="
+    />
+  </div>
 
-<div class="text-center">
   <div class="button-container">
-    <button id="create" class="button create">Insert Art/Text</button>
+    <button id="images" class="button create">Add images</button>
+    <button id="text" class="button create">Add text</button>
     <button id="cancel" class="button cancel">Cancel</button>
   </div>
-</div>
+</body>
+
 <script>
-
   onmessage = (event) => {
-    if (event.data.pluginMessage.type === 'get-image') {
-      loadRandomImage(event.data.pluginMessage.id)
+    if (event.data.pluginMessage.type === "get-image") {
+      loadRandomImage(event.data.pluginMessage.id);
     }
-    if (event.data.pluginMessage.type === 'get-title') {
-      loadRandomPackName(event.data.pluginMessage.index)
+    if (event.data.pluginMessage.type === "get-title") {
+      loadRandomPackName(event.data.pluginMessage.index);
     }
-  }
+  };
 
-  document.getElementById('create').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'process-selected' } }, '*')
-  }
+  document.getElementById("images").onclick = () => {
+    parent.postMessage({ pluginMessage: { type: "add-images" } }, "*");
+  };
 
-  document.getElementById('cancel').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-  }
+  document.getElementById("text").onclick = () => {
+    parent.postMessage({ pluginMessage: { type: "add-text" } }, "*");
+  };
+
+  document.getElementById("cancel").onclick = () => {
+    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+  };
 
   function getRandomPack(cb) {
-    var request = new XMLHttpRequest()
-    request.open('GET', 'https://api.ampifymusic.com/packs')
-    request.responseType = 'json'
+    var request = new XMLHttpRequest();
+    request.open("GET", "https://api.ampifymusic.com/packs");
+    request.responseType = "json";
     request.onload = async () => {
-      const packs = request.response.packs
-      const randomPack = packs[Math.floor(Math.random() * packs.length)]
-      cb(randomPack)
+      const packs = request.response.packs;
+      const randomPack = packs[Math.floor(Math.random() * packs.length)];
+      cb(randomPack);
     };
-    request.send()
+    request.send();
   }
 
   function loadRandomImage(nodeId) {
     getRandomPack(async (pack) => {
-      await loadImage(pack.imageUrl, nodeId)
-    })
+      await loadImage(pack.imageUrl, nodeId);
+    });
   }
 
   function loadRandomPackName(nodeIndex) {
     getRandomPack((pack) => {
-      parent.postMessage({ pluginMessage: { type: 'new-title', name: pack.name, nodeIndex } }, '*')
-    })
+      parent.postMessage(
+        { pluginMessage: { type: "new-title", name: pack.name, nodeIndex } },
+        "*"
+      );
+    });
   }
 
   async function loadImage(url, nodeId) {
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-    const art = new Image()
-    art.crossOrigin = ''
-    art.src = url
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const art = new Image();
+    art.crossOrigin = "";
+    art.src = url;
     art.onload = async () => {
-      canvas.width = art.width
-      canvas.height = art.height
-      ctx.drawImage(art, 0, 0)
-      const imageData = ctx.getImageData(0, 0, art.width, art.height)
-      const newBytes = await encode(canvas, ctx, imageData)
-      parent.postMessage({ pluginMessage: { type: 'new-image', newBytes, nodeId } }, '*')
-    }
+      canvas.width = art.width;
+      canvas.height = art.height;
+      ctx.drawImage(art, 0, 0);
+      const imageData = ctx.getImageData(0, 0, art.width, art.height);
+      const newBytes = await encode(canvas, ctx, imageData);
+      parent.postMessage(
+        { pluginMessage: { type: "new-image", newBytes, nodeId } },
+        "*"
+      );
+    };
   }
 
   async function encode(canvas, ctx, imageData) {
-    ctx.putImageData(imageData, 0, 0)
+    ctx.putImageData(imageData, 0, 0);
     return new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        const reader = new FileReader()
-        reader.onload = () => resolve(new Uint8Array(reader.result))
-        reader.onerror = () => reject(new Error('Could not read from blob'))
-        reader.readAsArrayBuffer(blob)
-      })
-    })
+      canvas.toBlob((blob) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(new Uint8Array(reader.result));
+        reader.onerror = () => reject(new Error("Could not read from blob"));
+        reader.readAsArrayBuffer(blob);
+      });
+    });
   }
-
 </script>

@@ -6,88 +6,97 @@
 // full browser environment (see documentation).
 
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__);
+figma.showUI(__html__, {
+  width: 280,
+  height: 342,
+});
 
 const isRectangleNode = (node: SceneNode): node is RectangleNode => {
-  return node.type === "RECTANGLE"
-}
+  return node.type === "RECTANGLE";
+};
 const isTextNode = (node: SceneNode): node is TextNode => {
-  return node.type === "TEXT"
-}
+  return node.type === "TEXT";
+};
 
-figma.ui.onmessage = async msg => {
-  if (msg.type === "process-selected") {
-    const currentSelection = figma.currentPage.selection
+figma.ui.onmessage = async (msg) => {
+  if (msg.type === "add-images") {
+    const currentSelection = figma.currentPage.selection;
+    const selectedRectNodes = getAllRectangles(currentSelection, []);
 
-    const selectedRectNodes: RectangleNode[] = getAllRectangles(currentSelection, [])
-    const selectedTextNodes: TextNode[] = figma.currentPage.selection.filter(isTextNode)
-
-    await figma.loadFontAsync({family: 'Roboto', style: 'Regular'})
-    console.log("selectedRectNodes", selectedRectNodes)
     selectedRectNodes.forEach((node) => {
-      figma.ui.postMessage({type: "get-image", id: node.id})
-    })
+      figma.ui.postMessage({ type: "get-image", id: node.id });
+    });
+  }
+
+  if (msg.type === "add-text") {
+    const currentSelection = figma.currentPage.selection;
+    const selectedTextNodes = figma.currentPage.selection.filter(isTextNode);
+    await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
+
     selectedTextNodes.forEach((node, index) => {
-      figma.ui.postMessage({type: "get-title", index})
-    })
+      figma.ui.postMessage({ type: "get-title", index });
+    });
   }
 
-  if (msg.type === 'new-image') {
-    const node = figma.getNodeById(msg.nodeId) as RectangleNode
-    fillWithPack(msg.newBytes, node)
+  if (msg.type === "new-image") {
+    const node = figma.getNodeById(msg.nodeId) as RectangleNode;
+    fillWithPack(msg.newBytes, node);
   }
 
-  if (msg.type === 'new-title') {
-    const selectedNodes: TextNode[] = figma.currentPage.selection.filter(isTextNode)
-    const node = selectedNodes[msg.nodeIndex]
-    const font: FontName = {family: 'Roboto', style: 'Regular'}
+  if (msg.type === "new-title") {
+    const selectedNodes: TextNode[] =
+      figma.currentPage.selection.filter(isTextNode);
+    const node = selectedNodes[msg.nodeIndex];
+    const font: FontName = { family: "Roboto", style: "Regular" };
 
-    node.setRangeFontName(0, node.characters.length, font)
-    node.characters = msg.name
+    node.setRangeFontName(0, node.characters.length, font);
+    node.characters = msg.name;
   }
 };
 
-function getAllRectangles(nodes, rectangles: RectangleNode[]): RectangleNode[] {
-  const allRectangles =[...rectangles]
-
+function getAllRectangles(
+  nodes: any[] | readonly SceneNode[],
+  rectangles: RectangleNode[]
+): RectangleNode[] {
+  const allRectangles = [...rectangles];
 
   for (const node of nodes) {
-    const children = node.children
+    const children = node.children;
 
     if (isRectangleNode(node)) {
-      allRectangles.push(node)
+      allRectangles.push(node);
     } else if (children) {
       for (const child of children) {
-        console.log('child', child)
-        const rects = getAllRectangles([child], [])
-        console.log('rects to add', rects)
-        allRectangles.push(...rects)
+        console.log("child", child);
+        const rects = getAllRectangles([child], []);
+        console.log("rects to add", rects);
+        allRectangles.push(...rects);
         // allRectangles.push(...getAllRectangles([child], allRectangles))
       }
     }
   }
 
-  console.log(allRectangles)
-  return allRectangles
+  console.log(allRectangles);
+  return allRectangles;
 }
 
-function fillWithPack(imageData, node: RectangleNode) {
-  const newImage = figma.createImage(imageData)
+function fillWithPack(imageData: Uint8Array, node: RectangleNode) {
+  const newImage = figma.createImage(imageData);
 
   const fills = clone(node.fills);
 
   for (const paint of fills) {
-    paint.type = 'IMAGE'
-    paint.scaleMode ='FILL'
-    delete paint.color
-    paint.imageHash = newImage.hash
+    paint.type = "IMAGE";
+    paint.scaleMode = "FILL";
+    delete paint.color;
+    paint.imageHash = newImage.hash;
   }
 
-  node.fills = fills
+  node.fills = fills;
 
-  return node
+  return node;
 }
 
-function clone(val) {
-  return JSON.parse(JSON.stringify(val))
+function clone(val: readonly Paint[] | typeof figma.mixed) {
+  return JSON.parse(JSON.stringify(val));
 }
